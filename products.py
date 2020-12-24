@@ -6,6 +6,7 @@ while True:
 		break
 	str1='請輸入'+name+'價格：'
 	price =input(str1)
+	price = int(price)  #將price轉換為整數型態
 	#方法一
 	#p=[]
 	#p.append(name)
@@ -26,3 +27,8 @@ for p in products:
 	print('第',i,'index:',p)
 	print(p[0],'的價格是', p[1])
 	i=i+1
+
+with open('products.csv', 'w', encoding='utf-8') as f:  #開啟檔案
+	f.write('商品,價格\n')
+	for p in products:
+		f.write(p[0]+ ','+ str(p[1])+ '\n')	  #寫入檔案, 且將p[1]由整數型態轉換為字串
