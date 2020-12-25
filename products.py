@@ -1,5 +1,29 @@
+import os 
 
 products=[]
+if os.path.isfile('products.csv'):    #檢查檔案在不在，檢查相對路徑內，是否有此檔案!~~
+	print('ya!~~找到檔案了!')
+	# 讀取檔案 start
+	with open('products.csv', 'r', encoding='utf-8') as f:
+		for line in f:
+			if '商品,價格' in line:
+				continue #這迴中止，繼續下一迴
+			#-----------------------------------
+			# 方法一
+			#s=line.strip().split(',')  #strip()去換行符號
+			#name=s[0]
+			#price=s[1]
+			# 方法二
+			#name, price=line.strip().split(',')
+			#-----------------------------------
+			name, price=line.strip().split(',')  #字串切割
+			products.append([name, price])
+	print(products)
+	# 讀取檔案 end
+else:
+	print('找不到檔案')
+
+#讓使用者輸入
 while True:
 	name=input('請輸入商品名稱：')
 	if name =='q':
@@ -19,8 +43,9 @@ while True:
 	products.append([name, price])
 print(products)
 print('取第2個商品及價格值：',products[1][0],',',products[1][1])
-
 print('--------------------')
+
+# 印出所有購買紀錄
 print('取每一個二維清單的值')
 i=0
 for p in products:
@@ -28,6 +53,7 @@ for p in products:
 	print(p[0],'的價格是', p[1])
 	i=i+1
 
+# 寫入檔案
 with open('products.csv', 'w', encoding='utf-8') as f:  #開啟檔案
 	f.write('商品,價格\n')
 	for p in products:
